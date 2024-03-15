@@ -19,6 +19,6 @@ const electronics = [
 ];
 
 total(electronics, (error, money) => {
-  if (error) return console.error({ error });
+  if (error) return void console.error({ error });
   console.log({ money });
 });
