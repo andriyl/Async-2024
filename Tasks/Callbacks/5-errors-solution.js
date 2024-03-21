@@ -48,7 +48,7 @@ const calculateTotal = (order, callback) => {
 
   if (errors.length) {
     return void callback(new Error('Can not calculate total', {
-      cause: AggregateError(errors, 'Caused by') // TODO: Q: removed extra array [errors]
+      cause: AggregateError(errors, 'Caused by')
     }));
   }
   return void callback(null, { total, expenses });

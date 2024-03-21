@@ -18,7 +18,7 @@ const total = (items, callback) => {
   *   [...items]
   *   [].concat(items)
   * */
-  let itemsCopy= [...items]
+  const itemsCopy= [...items];
   let timer = setInterval(() => {
     if (itemsCopy.length === 0) {
       timer = clearTimer(timer);

@@ -8,7 +8,6 @@ const clearTimer = (timer) => {
   }
   return null;
 };
-//TODO: Q: separate function `clearTimer`
 
 const total = (items, callback) => {
   let result = 0;

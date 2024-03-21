@@ -3,11 +3,11 @@
 const iterate = (items) => {
   let index = 0;
   return {
-    next: () => {
+    next: () => new Promise(resolve => {
       if (index < items.length) {
-        return Promise.resolve(items[index++]); //TODO: Q: alternative solution
+        resolve(items[index++]);
       }
-    }
+    })
   };
 };
 
@@ -25,4 +25,6 @@ const electronics = [
   console.log(item2);
   const item3 = await items.next();
   console.log(item3);
+  const item4 = await items.next();
+  console.log(item4);
 })();
