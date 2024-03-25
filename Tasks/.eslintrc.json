@@ -9,7 +9,8 @@
     "ecmaVersion": "latest"
   },
   "globals": {
-    "BigInt": true
+    "BigInt": true,
+    "AggregateError": true
   },
   "rules": {
     "indent": [
