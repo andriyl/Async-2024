@@ -1,15 +1,5 @@
 'use strict';
 
-// Task: rewrite error handling to use callback-last-error-first
-// contract to return errors instead of throwing them.
-// So remove all try/catch blocks and pass errors to callbacks.
-// Hint: You may also use error.cause to wrap escalated errors.
-// Extra credit task: use AggregateError to combine escalated errors.
-// Extra credit task: fix eslint error: "Function declared in a loop
-//   contains unsafe references to variable(s) 'total'  no-loop-func"
-
-// TODO: can't reproduce eslint error
-
 const MAX_PURCHASE = 2000;
 
 const calculateSubtotal = (goods, callback) => {
@@ -19,7 +9,7 @@ const calculateSubtotal = (goods, callback) => {
       return void callback(new Error('Noname in item in the bill'));
     }
     if (typeof price !== 'number') {
-      return void callback(new Error(`${name} price expected to be number`))
+      return void callback(new Error(`${name} price expected to be number`));
     }
     if (price < 0) {
       return void callback(new Error(`Negative price for ${name}`));
@@ -33,15 +23,19 @@ const calculateTotal = (order, callback) => {
   const expenses = new Map();
   let total = 0;
   const errors = [];
+  const updateTotalAndExpenses = (groupName, amount) => {
+    total += amount;
+    expenses.set(groupName, amount);
+  };
+
   for (const groupName in order) {
     const goods = order[groupName];
     calculateSubtotal(goods, (error, amount) => {
       if (error) return void errors.push(error);
-      total += amount;
-      expenses.set(groupName, amount);
+      updateTotalAndExpenses(groupName, amount);
     });
     if (total > MAX_PURCHASE) {
-      errors.push(new Error('Total is above the limit'))
+      errors.push(new Error('Total is above the limit'));
       break;
     }
   }
@@ -51,7 +45,7 @@ const calculateTotal = (order, callback) => {
       cause: AggregateError(errors, 'Caused by')
     }));
   }
-  return void callback(null, { total, expenses });
+  callback(null, { total, expenses });
 };
 
 const purchase = {
