@@ -29,9 +29,19 @@ purchase.on('error', (error) => {
 });
 
 purchase.on('add', (item) => {
+  if (wallet.money < item.price) return;
   wallet.money -= item.price;
   console.log({ item, wallet });
 });
+
+purchase.on('buy', (item) => {
+  console.log({ bought: item });
+});
+
+purchase.on('done', () => {
+  console.log('Done');
+});
+
 
 const electronics = [
   { name: 'Laptop', price: 1500 },
@@ -42,6 +52,7 @@ const electronics = [
 for (const item of electronics) {
   purchase.emit('add', item);
 }
+purchase.emit('done');
 
 console.log({ wallet });
 console.log({ purchase });
