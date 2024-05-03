@@ -5,14 +5,14 @@ class Iterator {
   #items = null;
 
   constructor(items) {
-    this.#items = items
+    this.#items = items;
   }
 
   then(fulfill, reject) {
     if (this.#index < this.#items.length) {
       fulfill(this.#items[this.#index++]);
     } else {
-      reject(new Error('no more items'))
+      reject(new Error('no more items'));
     }
   }
 }

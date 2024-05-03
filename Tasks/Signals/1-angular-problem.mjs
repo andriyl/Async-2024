@@ -14,9 +14,9 @@ const electronics = [
 
 const items = signal(electronics);
 
-const total = (items) => {
+const total = (goods) => {
   let result = 0;
-  for (const item of items) {
+  for (const item of goods) {
     result += item.price;
   }
   return result;

@@ -11,8 +11,8 @@ const electronics = [
 (async () => {
   const iter = setInterval(1000, electronics);
   for await (const items of iter) {
-    if (!items.length) break;
     const item = items.shift();
     console.log({ item });
+    if (!items.length) break;
   }
 })();
